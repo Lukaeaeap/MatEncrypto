@@ -19,18 +19,20 @@ def print_w_label(print_label, printable_thing):
 
 
 class Encryptor:
-    def __init__(self, message, key, ence_array, matrix_to_decrypt, encrypted_list):
+    def __init__(self, message, key, ence_array, matrix_to_decrypt, encrypted_list,out,message_mat):
         self.message = message
         self.key = key 
         self.ence_array = ence_array
         self.matrix_to_decrypt = matrix_to_decrypt
         self.encrypted_list = encrypted_list
+        self.out = out
+        self.message_mat = message_mat
 
-    def encrypt(self, message, key,matrix_to_decrypt,ence_array, encrypted_list):
-        message_mat = list([ord(char) for char in self.message])
-        output = [list(group) for group in more_itertools.grouper(message_mat, 4, 0)]  # [[1, 2, 3, 4], [5, 6, 0, 0]]
-        out = np.rot90(np.matrix(output), k=1)
-        self.matrix_to_decrypt = self.key*out
+    def encrypt(self, message, key,matrix_to_decrypt,ence_array, encrypted_list,out,message_mat):
+        self.message_mat = list([ord(char) for char in self.message])
+        output = [list(group) for group in more_itertools.grouper(self.message_mat, 4, 0)]  # [[1, 2, 3, 4], [5, 6, 0, 0]]
+        self.out = np.rot90(np.matrix(output), k=1)
+        self.matrix_to_decrypt = self.key*self.out
         turnedenc = np.rot90(np.matrix(self.matrix_to_decrypt), k=-1)
         enc_carray = np.rint(turnedenc)
         enc_list =  enc_carray.astype(int)
@@ -89,15 +91,18 @@ def _main():  # _ at start of name to hint that this should be treated as a priv
     enc_txt = 'soon text'
     decbl_msg = None
     show_list = None
-
+    
     input_thing = Inpute(enc_txt, show_list, decbl_msg)
     input_thing.get(enc_txt, show_list)
-    encrypting = Encryptor(input_thing.encryptable_txt, key, None, None, None)
-    encrypting.encrypt(input_thing.encryptable_txt, key, None, None, None)
+    encrypting = Encryptor(input_thing.encryptable_txt, key, None, None, None, None, None)
+    encrypting.encrypt(input_thing.encryptable_txt, key, None, None, None, None, None)
     input_thing.after(show_list, encrypting)
     
     decrypting = Decryptor(key, None)
     decrypting.decrypt(encrypting, key, None)
+    print_w_label("Letters as list", encrypting.message_mat)
+    print_w_label("Letters as numbers matrix", encrypting.out)
+
     # With input:
     """
     decrypting = Decrypt(key, None)

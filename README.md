@@ -4,10 +4,10 @@ Lijst me ASCII tekens:
 
 Dit is de lijst van karakters (de eerste 33 karakters zijn echter niet print-baar), die deze software mogelijk zou kunnen encrypten en decrypten (versleutelen en ont-sleutelen). Ieder karakter in deze lijst heeft een rangschikking waarde, zo begin je met x00 dat is in de rangschikking de eerste waarde in de lijst (bij het programmeren is de eerste waarde in een lijst 0, de tweede 1, de derde 3 etc.) en bijvoorbeeld ‘A’ geeft als nummer in de lijst, waarde 68. De code splitst tekens in matrices van 4 rijen en een x aantal kolommen. Stel we geven mijn software als input ‘ABCDEF’ dan krijgen we hierbij de lijst [65, 66, 67, 68, 69] dit zetten we om in de Matrix 
 ## M =
-##|68   0|
-##|67   0|
-##|66   0|
-##|65  69|
+###|68   0|
+###|67   0|
+###|66   0|
+###|65  69|
 
 Voor de overige plekken gebruik ik een ‘0’, deze wordt door de code gezien als een lege plek.
 
